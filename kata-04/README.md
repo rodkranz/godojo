@@ -13,7 +13,7 @@ Link: [GitHub](https://api.github.com/users/rodkranz)
 
 Devemos criar uma `struct` com os dados que vamos precisar.  
 
-**UserGithub**:
+**GithubUser**:
 
 | Name         | Type   |
 |--------------|--------|
@@ -39,7 +39,7 @@ fetchUserInfoFromGithub("rodkranz")
 Output esperado é:
 ```bash:
 go run main.go
-    main.UserGithub{Login:"rodkranz", HtmlUrl:"https://github.com/rodkranz", Name:"Rodrigo Lopes", AvatarURL:"https://avatars2.githubusercontent.com/u/16897636?v=4", Company:"OLX", PublicRepos:34, PublicGists:20, Followers:23, Following:1} 
+    main.GithubUser{Login:"rodkranz", HtmlUrl:"https://github.com/rodkranz", Name:"Rodrigo Lopes", AvatarURL:"https://avatars2.githubusercontent.com/u/16897636?v=4", Company:"OLX", PublicRepos:34, PublicGists:20, Followers:23, Following:1} 
 ```
 
 > **Dica**
@@ -82,7 +82,7 @@ Para mais informações [Documentation Slack Attaching](https://api.slack.com/do
 ---
 ### Step 5:
 
-Vamos criar um metodo que ira receber a nossa primeira `struct`(`UserGithub`) e retorna a segunda `struct`(`SlackMessage`) com os dados populados, o metodo tera a seguinte assinatura `func hydrateMessage(github UserGithub) SlackMessage`:
+Vamos criar um metodo que ira receber a nossa primeira `struct`(`GithubUser`) e retorna a segunda `struct`(`SlackMessage`) com os dados populados, o metodo tera a seguinte assinatura `func hydrateMessage(github GithubUser) SlackMessage`:
 
 Você deve associar as informações:
 
