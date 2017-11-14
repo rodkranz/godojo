@@ -2,7 +2,7 @@
 ---
 ### Step 1:
 
-Primeira coisa é ir a **API** do github para a estrutura dos dados que vamos usar. 
+Primeira coisa é ir a **API** do github para a `struct` dos dados que vamos usar. 
 
 O link é `https://api.github.com/users/{:username}`
 
@@ -11,7 +11,7 @@ Link: [GitHub](https://api.github.com/users/rodkranz)
 ---
 ### Step 2: 
 
-Devemos criar uma estrutura com os dados que vamos precisar.  
+Devemos criar uma `struct` com os dados que vamos precisar.  
 
 **UserGithub**:
 
@@ -26,10 +26,15 @@ Devemos criar uma estrutura com os dados que vamos precisar.
 ---
 ### Step 3: 
 
-Agora vamos buscar os dados da **API** e popular na estrutura que criamos, precisamos criar uma função com a assinatura `func fetchUserInfoFromGithub(username string) (gu GithubUser, err error)`
+Agora vamos buscar os dados da **API** e popular na `struct` que criamos, precisamos criar uma função com a assinatura `func fetchUserInfoFromGithub(username string) (gu GithubUser, err error)`
 para que possamos testar.
  
 Depois de executar a função para testar fazemos um `Printf` da `struct` com formato `%#v`.
+Na função main faz uma chamada do metodo que acabamos de criar e passamos um nome valido (`rodkranz`) e invalido (`rodkranz2`).
+
+```go
+fetchUserInfoFromGithub("rodkranz")
+```  
 
 Output esperado é:
 ```bash:
@@ -104,14 +109,17 @@ Você deve associar as informações:
 ### Step 6
 
 Temos quase tudo que precisamos para fazer um post no `Slack` com a nossa mensagem, antes de fazer o post devemos converter nossa `struct` para um formato `json` no qual a **API** do `slack` conhece,
-para isso vamos fazer um **bind** na nossa estrutura `SlackMessage` de um novo metodo com a seguinte assinatura `func Bytes() []bytes`.
+para isso vamos fazer um **bind** na nossa `struct` `SlackMessage` de um novo metodo com a seguinte assinatura `func Bytes() []bytes`.
 
 O metodo chamado **Bytes** deve returnar um slices de bytes 
 
 > **Dica**
-> * Associar metodos a estrutura [GoByExample Methods](https://gobyexample.com/methods)
+> * Associar metodos a `struct` [GoByExample Methods](https://gobyexample.com/methods)
 > * Transformar `struct` em `json` você deve usar o `json.Marshal`. [Documentation](https://golang.org/pkg/encoding/json/#Marshal)  
-> * Slices em GO [GoByExample Slices](https://gobyexample.com/slices) 
+> * Slices em GO [GoByExample Slices](https://gobyexample.com/slices)
+
+
+>> **Slices** em go um slice é um *array* dinamico, pode crescer sem precisar definir um tamanho, o array sempre tem um tamanho definido. 
 
 ---
 ### Step 7
