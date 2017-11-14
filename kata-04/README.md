@@ -119,7 +119,7 @@ O metodo chamado **Bytes** deve returnar um slices de bytes
 > * Slices em GO [GoByExample Slices](https://gobyexample.com/slices)
 
 
->> **Slices** em go um slice é um *array* dinamico, pode crescer sem precisar definir um tamanho, o array sempre tem um tamanho definido. 
+>> **Slices** em go um slice é como um "*array*" dinamico, pode crescer sem ter um tamanho fixo, o array em go sempre tem um tamanho definido. 
 
 ---
 ### Step 7
