@@ -29,9 +29,9 @@ Devemos criar uma estrutura com os dados que vamos precisar.
 Agora vamos buscar os dados da **API** e popular na estrutura que criamos, precisamos criar uma função com a assinatura `func fetchUserInfoFromGithub(username string) (gu GithubUser, err error)`
 para que possamos testar.
  
-Depois de executada deve fazer um `Printf` da estrutura com formato `%#v`.
+Depois de executar a função para testar fazemos um `Printf` da `struct` com formato `%#v`.
 
-Output:
+Output esperado é:
 ```bash:
 go run main.go
     main.UserGithub{Login:"rodkranz", HtmlUrl:"https://github.com/rodkranz", Name:"Rodrigo Lopes", AvatarURL:"https://avatars2.githubusercontent.com/u/16897636?v=4", Company:"OLX", PublicRepos:34, PublicGists:20, Followers:23, Following:1} 
@@ -49,9 +49,9 @@ go run main.go
 
 Já temos todas as informações que precisamos do `user` do github, agora vamos ver como podemos fazer para enviar uma nova mensagem no `Slack`.
 
-Começamos criando uma estrutura de mensagem `SlackMessage` e `Attachment` que tera as seguintes propriedades:
+Começamos criando duas `struct` para a mensagem, Uma `SlackMessage` e outra `Attachment` que devem ter as seguintes propriedades:
 
-**Attachment**: 
+1 **Attachment**: 
 
 | Name        | Type    |
 |-------------|---------|
@@ -63,7 +63,7 @@ Começamos criando uma estrutura de mensagem `SlackMessage` e `Attachment` que t
 | TitleLink   |  string |
 | Text        |  string |
 
-**SlackMessage**: 
+2 **SlackMessage**: 
 
 | Name        | Type         |
 |-------------|--------------|
@@ -77,7 +77,7 @@ Para mais informações [Documentation Slack Attaching](https://api.slack.com/do
 ---
 ### Step 5:
 
-Vamos criar uma função que ira receber a nossa primeira estrutura `UserGithub` e retorna uma estrutura `SlackMessage` com os dados populados, o metodo tera uma assinatura `func hydrateMessage(github UserGithub) SlackMessage {}`:
+Vamos criar um metodo que ira receber a nossa primeira `struct`(`UserGithub`) e retorna a segunda `struct`(`SlackMessage`) com os dados populados, o metodo tera a seguinte assinatura `func hydrateMessage(github UserGithub) SlackMessage`:
 
 Você deve associar as informações:
 
@@ -103,21 +103,30 @@ Você deve associar as informações:
 ---
 ### Step 6
 
-Temos quase tudo que precisamos para fazer um post no `Slack` com a nossa mensagem, antes de fazer o post devemos converter nossa `struct` para um formato `json` no qual a **API** so `slack` sabe trabalhar,
-para isso vamos fazer um **bind** na nossa estrutura `SlackMessage` de um novo metodo: `func Bytes() []bytes`.
+Temos quase tudo que precisamos para fazer um post no `Slack` com a nossa mensagem, antes de fazer o post devemos converter nossa `struct` para um formato `json` no qual a **API** do `slack` conhece,
+para isso vamos fazer um **bind** na nossa estrutura `SlackMessage` de um novo metodo com a seguinte assinatura `func Bytes() []bytes`.
 
-O metodo chamado **Bytes** deve returnar um array de bytes 
+O metodo chamado **Bytes** deve returnar um slices de bytes 
 
 > **Dica**
 > * Associar metodos a estrutura [GoByExample Methods](https://gobyexample.com/methods)
 > * Transformar `struct` em `json` você deve usar o `json.Marshal`. [Documentation](https://golang.org/pkg/encoding/json/#Marshal)  
+> * Slices em GO [GoByExample Slices](https://gobyexample.com/slices) 
 
+---
 ### Step 7
 
 Agora temos tudo que precisamos para fazer o post na **API** do `slack`, vamos criar um metodo `func sendMessageToSlack(message SlackMessage) error`,
-que vai fazer o post na url `https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXXX/000000000000000000`.
+que vai fazer o post na `API` do `slack`: `https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXXX/000000000000000000`.
 
 > **Dicas**
 > * Você vai precisar de fazer um post para isso use o metodo `http.Post` do package `net/http`. [documentation](https://golang.org/pkg/net/http/#Client.Post)
 > * Vai precisar fazer um *stream* de buffer para isso use `bytes.NewBuffer` do package `bytes`. [documentation](https://golang.org/pkg/bytes/#NewBuffer)
 
+---
+### Step 8
+
+Agora Vamos rodar nossa aplicação e ver a magica acontecer.  
+```bash
+$ go run mais.go
+```
